@@ -20,5 +20,7 @@ public interface ICommandeStatutLogService {
     
     public List<String> logParser();
     
+    public void clear();
+    
     public String create(String emmeteur, String action, int idCommande, Timestamp horodatage, int idProduit, int idEtat, String type);
 }

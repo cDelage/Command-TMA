@@ -31,10 +31,13 @@ public class CommandeStatutLogService implements ICommandeStatutLogService {
     @Autowired
     private ICommandeStatutLogDAO commandeStatutLogDAO;
 
-   /**
-    * Service function to parse log from object to string like 'HH:MM:DD [TYPE] USER make ACTION for Order...'
-    * @return list of string which contains all actions log read from the database
-    */
+    /**
+     * Service function to parse log from object to string like 'HH:MM:DD [TYPE]
+     * USER make ACTION for Order...'
+     *
+     * @return list of string which contains all actions log read from the
+     * database
+     */
     @Override
     public List<String> logParser() {
         List<String> response = new ArrayList();
@@ -42,11 +45,11 @@ public class CommandeStatutLogService implements ICommandeStatutLogService {
         String logger;
         for (CommandeStatutLog log : logs) {
             if (log.getType().compareTo("DELETE") == 0) {
-                logger = log.getHorodatage().toString()+ " [" + log.getType() + "] " + log.getEmmeteur() + " "+ log.getAction();
+                logger = log.getHorodatage().toString() + " [" + log.getType() + "] " + log.getEmmeteur() + " " + log.getAction();
             } else if (log.getType().compareTo("UPDATE_ALL") == 0 || log.getType().compareTo("ERROR_ALL") == 0) {
-                logger = log.getHorodatage().toString()+ " [" + log.getType() + "] " + log.getEmmeteur() + " " + log.getAction() + " orders to status " + log.getIdEtat();
+                logger = log.getHorodatage().toString() + " [" + log.getType() + "] " + log.getEmmeteur() + " " + log.getAction() + " orders to status " + log.getIdEtat();
             } else {
-                logger = log.getHorodatage().toString() + " [" + log.getType() + "] " + log.getEmmeteur() + " " + log.getType() + " order " + log.getIdCommande() + " to status " + log.getIdEtat()+ " " +ActionEnum.getActionLibelle(log.getIdEtat());
+                logger = log.getHorodatage().toString() + " [" + log.getType() + "] " + log.getEmmeteur() + " " + log.getType() + " order " + log.getIdCommande() + " to status " + log.getIdEtat() + " " + ActionEnum.getActionLibelle(log.getIdEtat());
             }
             response.add(logger);
         }
@@ -55,6 +58,7 @@ public class CommandeStatutLogService implements ICommandeStatutLogService {
 
     /**
      * Service function to read log from database
+     *
      * @return list of CommandeStatutLog
      */
     @Override
@@ -64,6 +68,7 @@ public class CommandeStatutLogService implements ICommandeStatutLogService {
 
     /**
      * Service function to create log
+     *
      * @param emmeteur the author of the action
      * @param action the action logged
      * @param idCommande the order modified
@@ -76,5 +81,10 @@ public class CommandeStatutLogService implements ICommandeStatutLogService {
     @Override
     public String create(String emmeteur, String action, int idCommande, Timestamp horodatage, int idProduit, int idEtat, String type) {
         return commandeStatutLogDAO.create(emmeteur, action, idCommande, horodatage, idProduit, idEtat, type);
+    }
+
+    @Override
+    public void clear() {
+        commandeStatutLogDAO.clear();
     }
 }

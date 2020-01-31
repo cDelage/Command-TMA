@@ -5,7 +5,7 @@
     <artifactId>Command-handler</artifactId>
     <packaging>war</packaging>
     <version>1.1-SNAPSHOT</version>
-    <name>Command-handler</name>
+    <name>Template</name>
     <url>http://maven.apache.org</url>
     <properties>
         <!-- Project properties -->

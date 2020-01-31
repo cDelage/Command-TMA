@@ -24,4 +24,5 @@ public interface ICommandeStatutLogDAO {
 
     public String create(String emmeteur, String action, int idCommande, Timestamp horodatage, int idProduit, int idEtat, String type);
 
+    public void clear();
 }

@@ -94,4 +94,20 @@ public class CommandeStatutLogDAO implements ICommandeStatutLogDAO {
         }
         return response;
     }
+
+    @Override
+    public void clear() {
+        StringBuilder query = new StringBuilder();
+        query.append("DELETE FROM CommandeStatutLog WHERE 1=1;");
+        try {
+            Connection connection = this.databaseSpring.connect();
+            PreparedStatement preStat = connection.prepareStatement(query.toString());
+            preStat.execute();
+            LOG.debug("CLEAR COMMAND SUCCESSFULL");
+        } catch (SQLException exception) {
+            LOG.error("CLEAR COMMAND FAIL, SQL exception : ", exception);
+        } catch (Exception exception) {
+            LOG.error("CLEAR COMMAND FAIL, exception : ", exception);
+        }
+    }
 }
